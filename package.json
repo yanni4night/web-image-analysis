@@ -1,0 +1,26 @@
+{
+  "name": "web-image-analysis",
+  "version": "1.0.0",
+  "description": "Analyze images on web",
+  "main": "index.js",
+  "bin": "bin/wia",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yanni4night/web-image-analysis.git"
+  },
+  "keywords": [
+    "analysis"
+  ],
+  "author": "yanni4night@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yanni4night/web-image-analysis/issues"
+  },
+  "homepage": "https://github.com/yanni4night/web-image-analysis",
+  "dependencies": {
+    "grunt": "^0.4.5",
+    "imagemin": "^3.2.2",
+    "nightmare": "^2.0.7",
+    "vo": "^1.0.3"
+  }
+}

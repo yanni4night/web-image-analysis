@@ -1,0 +1,12 @@
+#!/usr/bin/env node
+
+var wia = require('../');
+
+var args = process.argv.slice(2);
+var url = args[0];
+
+wia(url, function (err, results) {
+    if (results) {
+        console.log('%d-%d=%d', results.oldSize, results.newSize, results.oldSize - results.newSize);
+    }
+});
