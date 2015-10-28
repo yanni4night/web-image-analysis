@@ -19,8 +19,11 @@
   "homepage": "https://github.com/yanni4night/web-image-analysis",
   "dependencies": {
     "grunt": "^0.4.5",
-    "imagemin": "^3.2.2",
+    "jpegtran-bin": "^3.0.5",
     "nightmare": "^2.0.7",
     "vo": "^1.0.3"
+  },
+  "devDependencies": {
+    "async": "^1.5.0"
   }
 }

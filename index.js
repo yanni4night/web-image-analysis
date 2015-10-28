@@ -11,17 +11,17 @@
  */
 
 var Nightmare = require('nightmare');
-var Imagemin = require('imagemin');
 var grunt = require('grunt');
 var fs = require('fs');
 var vo = require('vo');
+var jpegtran = require('jpegtran-bin');
 var child_process = require('child_process');
 
 function* load(url) {
     var n = new Nightmare({
         width: 2560,
         height: 1600,
-        show: true
+        show: !true
     });
 
     var loaded = false;
@@ -61,7 +61,7 @@ function filter(images) {
             if (~(askIdx = src.indexOf('?'))) {
                 src = src.slice(0, askIdx);
             }
-            if (!urls[src] && /\.(jpe?g|gif|png)$/i.test(src)) {
+            if (!urls[src] && /\.(jpe?g)$/i.test(src)) {
                 urls[src] = 1;
                 return src;
             }
@@ -89,7 +89,7 @@ function download(images) {
                 child_process.exec('cd images && curl ' + img + ' -sO', resolve);
             });
         })).then(function () {
-            var localImages = grunt.file.expand(__dirname + '/images/*.{png,gif,jpg}');
+            var localImages = grunt.file.expand(__dirname + '/images/*.jpg');
             resolve(localImages);
         });
     });
@@ -103,15 +103,16 @@ function compress(localImages) {
         return new Promise(function (resolve) {
             var o = fs.statSync(img).size;
 
-            new Imagemin().src(img).dest(img + '.cpd').run(function (
-                err) {
+            child_process.execFile(jpegtran, ['-copy', 'none', '-optimize', '-outfile', img + '.jpg',
+                img
+            ], function (err) {
                 if (!err) {
-                    var n = fs.statSync(img + '.cpd').size;
+                    var n = fs.statSync(img + '.jpg').size;
                     oldSize += o;
                     newSize += n;
-                } else {
-                    console.error(err.message);
-                }
+                }/* else {
+                     console.error(err.message);
+                }*/
                 resolve();
             });
 
@@ -142,6 +143,6 @@ module.exports = function (url, cb) {
     }).then(function (localImages) {
         return compress(localImages);
     }).then(function (result) {
-        cb(result);
+        cb(null, result);
     });
 };
