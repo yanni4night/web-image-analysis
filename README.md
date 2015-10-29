@@ -1,6 +1,6 @@
 # web-image-analysis
 
-Analyze the JPEG on web pages.
+Analyze JPEG on web pages.
 
 # usage
 
@@ -13,7 +13,11 @@ wia('http://tieba.baidu.com/', function(err, result){
 });
 ```
 
-You have to run with `--harmony` because of [nightmare](https://github.com/segmentio/nightmare).
+You have to run with `--harmony`.
+
+# test
+
+    npm run test
 
 # author
  - <yanni4night@gmail.com>

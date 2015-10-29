@@ -8,6 +8,9 @@
     "type": "git",
     "url": "https://github.com/yanni4night/web-image-analysis.git"
   },
+  "scripts": {
+    "test": "node --harmony test.js"
+  },
   "keywords": [
     "analysis"
   ],

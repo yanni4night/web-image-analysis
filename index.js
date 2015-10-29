@@ -21,7 +21,7 @@ function* load(url) {
     var n = new Nightmare({
         width: 2560,
         height: 1600,
-        show: !true
+        show: true
     });
 
     var loaded = false;
