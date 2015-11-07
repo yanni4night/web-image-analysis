@@ -14,6 +14,7 @@ var Nightmare = require('nightmare');
 var grunt = require('grunt');
 var fs = require('fs');
 var vo = require('vo');
+var path = require('path');
 var jpegtran = require('jpegtran-bin');
 var child_process = require('child_process');
 
@@ -98,6 +99,7 @@ function download(images) {
 function compress(localImages) {
     var oldSize = 0;
     var newSize = 0;
+    var details = [];
 
     var promises = localImages.map(function (img) {
         return new Promise(function (resolve) {
@@ -110,9 +112,12 @@ function compress(localImages) {
                     var n = fs.statSync(img + '.jpg').size;
                     oldSize += o;
                     newSize += n;
-                }/* else {
-                     console.error(err.message);
-                }*/
+                    details.push({
+                        img: path.basename(img),
+                        oldSize: o,
+                        newSize: n
+                    });
+                }
                 resolve();
             });
 
@@ -122,8 +127,11 @@ function compress(localImages) {
     return new Promise(function (resolve) {
         Promise.all(promises).then(function () {
             resolve({
-                oldSize: oldSize,
-                newSize: newSize
+                total: {
+                    oldSize: oldSize,
+                    newSize: newSize
+                },
+                list: details
             });
         });
     });
