@@ -181,9 +181,11 @@ module.exports = {
     cleanJpeg: function (url, cb) {
         new Promise(function (resolve) {
                 vo(load)(url, function () {
-                    return Array.prototype.map.call(document.images, function (image) {
+                    return Array.prototype.map.call(window.$('img[bpic]'), function (image) {
+                        return $(image).attr('bpic');
+                    }).concat(Array.prototype.map.call(document.images, function (image) {
                         return image.src;
-                    });
+                    }));
                 }, function (err, images) {
                     resolve(images);
                 });
