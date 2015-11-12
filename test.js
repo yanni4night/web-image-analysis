@@ -22,7 +22,7 @@ var results = [];
 
 async.series(forums.map(function (name) {
     return function (resolve) {
-        wia('http://tieba.baidu.com/f?ie=utf-8&kw=' + encodeURIComponent(name), function (err,
+        wia.cleanJpeg('http://tieba.baidu.com/f?ie=utf-8&kw=' + encodeURIComponent(name), function (err,
             result) {
             if (result) {
                 result.forumName = name;

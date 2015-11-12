@@ -137,20 +137,22 @@ function compress(localImages) {
     });
 }
 
-module.exports = function (url, cb) {
-    new Promise(function (resolve) {
-        vo(load)(url, function (err, images) {
-            resolve(images);
+module.exports = {
+    cleanJpeg: function (url, cb) {
+        new Promise(function (resolve) {
+            vo(load)(url, function (err, images) {
+                resolve(images);
+            });
+        }).then(function (images) {
+            return clean(images);
+        }).then(function (images) {
+            return filter(images);
+        }).then(function (images) {
+            return download(images);
+        }).then(function (localImages) {
+            return compress(localImages);
+        }).then(function (result) {
+            cb(null, result);
         });
-    }).then(function (images) {
-        return clean(images);
-    }).then(function (images) {
-        return filter(images);
-    }).then(function (images) {
-        return download(images);
-    }).then(function (localImages) {
-        return compress(localImages);
-    }).then(function (result) {
-        cb(null, result);
-    });
+    }
 };
