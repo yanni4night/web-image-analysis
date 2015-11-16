@@ -17,7 +17,7 @@ var vo = require('vo');
 var path = require('path');
 var jpegtran = require('jpegtran-bin');
 var child_process = require('child_process');
-var gm = require('gm');
+// var gm = require('gm');
 
 function* load(url, findImageCb) {
     var n = new Nightmare({

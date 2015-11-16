@@ -7,8 +7,7 @@ Analyze JPEG on web pages.
 ```
 var wia = require('web-image-analysis');
 
-// Output:{oldSize:1024, newSize:512}
-wia('http://tieba.baidu.com/', function(err, result){
+wia.cleanJpeg('http://tieba.baidu.com/', function(err, result){
     console.log(result);
 });
 ```
